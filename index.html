@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dad Jokes Generator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap');
+        body {
+            font-family: Roboto;
+            background-color: black;
+            color: white;
+        }
+
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .joke-box {
+            width: 60%;
+            height: 10%;
+            border: 1px solid white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            font-family: Roboto;
+            padding: 10px 15px;
+            border: 1px solid white;
+            border-radius: 10px;
+            background-color: black;
+            color: white;
+            transition: .2s linear;
+            cursor: pointer;
+
+        }
+
+        .btn:hover {
+            background-color: white;
+            color: black;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dad Jokes Generator</h1>
+        <button class="btn">Click for more hilarity!</button><br>
+        <div class="joke-box">
+            <span class="joke">HAHA!</span>
+        </div>
+        
+         
+        
+    </div>
+
+    </span>
+    
+    <script>
+        const joke = document.querySelector('.joke')
+        const btn = document.querySelector('.btn')
+
+        const loadJoke = async () => {
+            const res = await fetch("https://icanhazdadjoke.com/", {
+                headers: {
+                    'Accept': 'application/json'   
+                }
+            });
+            const data = await res.json();
+            const newP = document.createElement('p');
+            newP.innerHTML = data.joke;
+            joke.appendChild(newP)
+        }
+
+        function clearJoke() {
+            joke.innerHTML = '';
+        }
+
+        btn.addEventListener('click', function(){
+            clearJoke();
+            loadJoke();
+
+        })
+
+        
+    </script>
+</body>
+</html>
